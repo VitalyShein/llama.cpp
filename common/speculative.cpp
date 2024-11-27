@@ -118,7 +118,6 @@ bool common_speculative_are_compatible(
                              "token %d content differs - target '%s', draft '%s'\n", __func__, i,
                         common_token_to_piece(ctx_tgt, i).c_str(),
                         common_token_to_piece(ctx_dft, i).c_str());
-                return true;
             }
         }
     }
