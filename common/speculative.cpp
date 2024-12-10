@@ -88,7 +88,6 @@ bool common_speculative_are_compatible(
     if (vocab_type_tgt != vocab_type_dft) {
         LOG_ERR("%s: draft model vocab type must match target model to use speculation but "
                      "vocab_type_dft = %d while vocab_type_tgt = %d\n", __func__, vocab_type_dft, vocab_type_tgt);
-        return false;
     }
 
     if (llama_add_bos_token(model_tgt) != llama_add_bos_token(model_dft) ||
@@ -98,7 +97,6 @@ bool common_speculative_are_compatible(
         LOG_ERR("%s: draft model special tokens must match target model to use speculation\n", __func__);
         LOG_ERR("%s: tgt: bos = %d (%d), eos = %d (%d)\n", __func__, llama_token_bos(model_tgt), llama_add_bos_token(model_tgt), llama_token_eos(model_tgt), llama_add_eos_token(model_tgt));
         LOG_ERR("%s: dft: bos = %d (%d), eos = %d (%d)\n", __func__, llama_token_bos(model_dft), llama_add_bos_token(model_dft), llama_token_eos(model_dft), llama_add_eos_token(model_dft));
-        return false;
     }
 
     {
@@ -111,7 +109,6 @@ bool common_speculative_are_compatible(
             LOG_ERR("%s: draft model vocab must closely match target model to use speculation but "
                          "target vocab size %d does not match draft vocab size %d - difference %d, max allowed %d\n",
                     __func__, n_vocab_tgt, llama_n_vocab(model_dft), vocab_diff, SPEC_VOCAB_MAX_SIZE_DIFFERENCE);
-            return false;
         }
 
         for (int i = SPEC_VOCAB_CHECK_START_TOKEN_ID; i < std::min(n_vocab_tgt, n_vocab_dft); ++i) {
